@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kr Арена | Pl Kr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 69, 0, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, rgba(255, 140, 0, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.1) 0%, transparent 30%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .graffiti-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .graffiti-text {
+            position: absolute;
+            font-family: 'Impact', sans-serif;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 69, 0, 0.3);
+            font-size: 6rem;
+            transform: rotate(-25deg);
+            left: 10%;
+            top: 15%;
+            opacity: 0.4;
+        }
+        
+        .graffiti-text:nth-child(2) {
+            transform: rotate(15deg);
+            left: 60%;
+            top: 65%;
+            font-size: 5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px solid #ff4500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #000;
+            text-shadow: 
+                0 0 5px #ff4500,
+                0 0 10px #ff4500,
+                0 0 15px #ff4500,
+                0 0 20px #ff4500,
+                0 0 30px #ff8c00,
+                0 0 40px #ff8c00;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #ffa500;
+            text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: rgba(255, 69, 0, 0.1);
+            border-left: 4px solid #ff4500;
+        }
+        
+        .intro {
+            text-align: center;
+            padding: 50px 20px;
+            margin: 30px 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ff4500;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+        }
+        
+        .intro h2 {
+            font-size: 2.5rem;
+            color: #ff8c00;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .intro p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #eee;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .jobs-section {
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            color: #ff4500;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff4500, #ff8c00, #ff4500, transparent);
+        }
+        
+        .job-card {
+            background-color: rgba(20, 20, 20, 0.9);
+            border: 2px solid #ff4500;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.4);
+            border-color: #ff8c00;
+        }
+        
+        .job-title {
+            font-size: 2rem;
+            color: #ff8c00;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 69, 0, 0.5);
+            display: flex;
+            align-items: center;
+        }
+        
+        .job-title::before {
+            content: '▶';
+            color: #ff4500;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .job-details {
+            list-style-type: none;
+        }
+        
+        .job-details li {
+            padding: 10px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #ddd;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .job-details li::before {
+            content: '★';
+            color: #ff4500;
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            margin: 40px 0;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(255, 140, 0, 0.1));
+            border: 2px solid #ff4500;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.3);
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            color: #ff8c00;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+        
+        .cta-text {
+            font-size: 1.3rem;
+            color: #eee;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: #000;
+            font-weight: bold;
+            font-size: 1.3rem;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8);
+            background: linear-gradient(45deg, #ff8c00, #ff4500);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 2px solid #ff4500;
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        .neon-line {
+            height: 3px;
+            background: linear-gradient(90deg, #ff4500, #ff8c00, #ff4500);
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .neon-title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .job-title {
+                font-size: 1.6rem;
+            }
+            
+            .intro h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                font-size: 1.1rem;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="graffiti-bg">
+        <div class="graffiti-text">PL KR</div>
+        <div class="graffiti-text">ARENA</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1 class="neon-title">Kr Арена</h1>
+            <div class="subtitle">Добро пожаловать на сайт Kr арены</div>
+            <div class="tagline">Тут представлено все что возможно. Отбор, танцы, безопасность и многое другое для создания идеального шоу.</div>
+        </header>
+        
+        <div class="neon-line"></div>
+        
+        <section class="intro">
+            <h2>Шоу начинается здесь</h2>
+            <p>Kr Арена - это не просто площадка для выступлений. Это целая экосистема, где каждый элемент, от кастинг-директора до службы безопасности, работает как один отлаженный механизм для создания незабываемых зрелищ. Мы объединяем таланты, технологии и профессионализм, чтобы каждое шоу стало событием.</p>
+        </section>
+        
+        <div class="neon-line"></div>
+        
+        <section class="jobs-section">
+            <h2 class="section-title">Описание работ</h2>
+            
+            <div class="job-card">
+                <h3 class="job-title">Кастинг-директор (Casting Director)</h3>
+                <ul class="job-details">
+                    <li><strong>Ищет таланты:</strong> Просматривает сотни портфолио, видео, ходит по танцевальным школам и театрам.</li>
+                    <li><strong>Проводит отбор:</strong> Организует кастинги, где оценивает не только навык, но и харизму, внешний типаж, способность работать в команде и «вписаться» в образ артиста.</li>
+                    <li><strong>Формирует состав:</strong> Именно он решает, кто из танцоров лучше всего передаст идею хореографа, а какой бэк-вокалист идеально дополнит голос звезды.</li>
+                </ul>
+            </div>
+            
+            <div class="job-card">
+                <h3 class="job-title">Танцор (Dancer / Back-up Dancer)</h3>
+                <ul class="job-details">
+                    <li><strong>Воплощает идею хореографа:</strong> Долго и усердно репетирует, чтобы каждый шаг, жест и переход выглядели идеально и синхронно с другими.</li>
+                    <li><strong>Работает на энергетику:</strong> Передает эмоции, задает ритм и энергетику зрительному залу. Часто именно танцоры «заводят» толпу в ключевые моменты.</li>
+                    <li><strong>Является частью сценографии:</strong> Может двигать декорации, быть «живым фоном» или ключевым визуальным акцентом.</li>
+                    <li><strong>Взаимодействует с артистом:</strong> Поддерживает главного исполнителя, ведет с ним диалог в танце, иногда импровизирует в рамках поставленного номера.</li>
+                </ul>
+            </div>
+            
+            <div class="job-card">
+                <h3 class="job-title">Охранник (Security / Служба безопасности)</h3>
+                <ul class="job-details">
+                    <li><strong>Контроль доступа:</strong> Следят, чтобы за кулисы или в охраняемую зону не проникли посторонние.</li>
+                    <li><strong>Безопасность артиста:</strong> Составляют «живой коридор», сопровождают его при перемещении, страхуют от слишком активных фанатов (т.н. «stage diving»).</li>
+                    <li><strong>Безопасность зрителей:</strong> Следят за порядком в зале, пресекают конфликты, помогают людям в случае давки или плохого самочувствия. Первыми реагируют на любые ЧП.</li>
+                    <li><strong>Работа с толпой:</strong> Умеют корректно и уверенно управлять большими скоплениями людей, эвакуируют зал в случае необходимости.</li>
+                    <li><strong>Контроль на входе:</strong> Досмотр на предмет запрещенных предметов — это тоже их работа для нашей же безопасности.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="neon-line"></div>
+        
+        <section class="cta-section">
+            <h2 class="cta-title">Хочешь работать с нами?</h2>
+            <p class="cta-text">Присоединяйся к команде Kr Арены! Мы всегда в поиске талантливых и увлеченных профессионалов, готовых создавать незабываемые шоу. Заполни анкету, и мы свяжемся с тобой!</p>
+            <a href="https://forms.gle/X83KwDgFhuN7pDHNA" target="_blank" class="cta-button">
+                Заполнить анкету на форуме
+            </a>
+        </section>
+        
+        <footer>
+            <p>© 2026 Kr Арена | Все права защищены</p>
+            <p>Черно-оранжевый граффити неоновый стиль</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Простой скрипт для добавления интерактивности
+        document.addEventListener('DOMContentLoaded', function() {
+            const jobCards = document.querySelectorAll('.job-card');
+            
+            jobCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Динамическое изменение цвета неонового заголовка
+            const neonTitle = document.querySelector('.neon-title');
+            let hue = 0;
+            
+            function updateNeonColor() {
+                hue = (hue + 0.5) % 360;
+                const color1 = `hsl(${hue}, 100%, 50%)`;
+                const color2 = `hsl(${(hue + 30) % 360}, 100%, 50%)`;
+                
+                neonTitle.style.textShadow = `
+                    0 0 5px ${color1},
+                    0 0 10px ${color1},
+                    0 0 15px ${color1},
+                    0 0 20px ${color1},
+                    0 0 30px ${color2},
+                    0 0 40px ${color2}
+                `;
+                
+                requestAnimationFrame(updateNeonColor);
+            }
+            
+            // Запуск анимации только если пользователь не предпочел уменьшенное движение
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                updateNeonColor();
+            }
+        });
+    </script>
+</body>
+</html>
